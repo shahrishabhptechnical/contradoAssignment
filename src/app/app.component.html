@@ -1,0 +1,4 @@
+<form (ngsubmit)="onSubmitForm();" novalidate>
+  <input [(ngModel)]="search">
+  <button type="submit" [disable]="search.length">Submit</button>
+</form>
