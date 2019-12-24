@@ -1,4 +1,41 @@
-<form (ngsubmit)="onSubmitForm();" novalidate>
-  <input [(ngModel)]="search">
-  <button type="submit" [disable]="search.length">Submit</button>
-</form>
+<header>
+  <form (ngSubmit)="onSubmitForm();" novalidate autocomplete="off">
+    <input [(ngModel)]="search" class="search" type="search" [ngModelOptions]="{standalone: true}" (search)="onClearSearch()">&nbsp;
+    <button type="submit" class="submit-btn" [disabled]="!search?.length">Submit</button>
+  </form>
+  <div>
+    Git User Details
+  </div>
+</header>
+
+<div class="user-details">
+  <ng-container *ngIf="gitUserData.login">
+    <div class="picture">
+      <img [src]="gitUserData.avatar_url" />
+    </div>
+    <div class="primary-info">
+      <div class="field-container">
+        <div class="field-label">User Name: </div>
+        <div class="field-value">{{gitUserData.login}}</div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Name:</div>
+        <div class="field-value">{{gitUserData.name}}</div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Location</div>
+        <div class="field-value">{{gitUserData.location}}</div>
+      </div>
+    </div>
+    <div class="repository">
+      <h3>Top 5 Repository List</h3>
+      <ng-container *ngFor="let repo of gitUserData?.repository">
+        <div class="repo">{{repo.name}} - {{repo.stargazers_count}}</div>
+      </ng-container>
+      <ng-container *ngIf="userRepositoryErrMsg">
+        <div>{{userRepositoryErrMsg}}</div>
+        </ng-container>      
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!gitUserData"></ng-container>
+</div>

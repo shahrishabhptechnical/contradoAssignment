@@ -1,0 +1,63 @@
+header {
+    background: #000000;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    
+    > div {
+        color: #fff;
+    }
+
+    .search {
+        height: 30px;
+        border-radius: 4px;
+    }
+
+    .submit-btn {
+        color: #000;
+        background: lightgray;
+        box-shadow: none;
+        height: 30px;
+        font-size: medium;
+        border: 0;
+        width: 100px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:disabled {
+            background: gray;
+            cursor: default;
+        }
+    }
+}
+
+.user-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F0F0F0;
+
+    > div {
+        width: 33.33%;
+        padding: 20px;
+    }
+
+    .primary-info {
+        .field-container {
+            height: 50px;
+        }
+
+        .field-label {
+            float: left;
+        }
+
+        .field-value {
+            float: right;
+        }
+    }
+
+    .repository {
+
+    }
+}
