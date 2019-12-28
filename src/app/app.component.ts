@@ -24,7 +24,7 @@ export class AppComponent {
   search: string;
   gitUserData: any = {};
   noDataFound = 'No User Found';
-  userRepositoryErrMsg = 'No Repository Found';
+  userRepositoryErrMsg: string;
 
   constructor(
     private searchService: SearchService
@@ -39,7 +39,8 @@ export class AppComponent {
           this.getGitUserRepo(resp);
         },
         (err) => {
-          console.log(err.error.message);
+          this.userRepositoryErrMsg = `${this.search} ${err.error.message}`;
+          this.gitUserData = {};
         })
     }
   }
@@ -77,6 +78,7 @@ export class AppComponent {
 
   onClearSearch() {
     this.search = '';
+    this.userRepositoryErrMsg = '';
     this.gitUserData = {};
   }
 

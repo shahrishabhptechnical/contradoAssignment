@@ -1,6 +1,7 @@
 <header>
   <form (ngSubmit)="onSubmitForm();" novalidate autocomplete="off">
-    <input [(ngModel)]="search" class="search" type="search" [ngModelOptions]="{standalone: true}" (search)="onClearSearch()">&nbsp;
+    <input [(ngModel)]="search" class="search" type="search" [ngModelOptions]="{standalone: true}"
+      (search)="onClearSearch()">&nbsp;
     <button type="submit" class="submit-btn" [disabled]="!search?.length">Submit</button>
   </form>
   <div>
@@ -8,34 +9,39 @@
   </div>
 </header>
 
-<div class="user-details">
-  <ng-container *ngIf="gitUserData.login">
-    <div class="picture">
-      <img [src]="gitUserData.avatar_url" />
+<div class="user-details" *ngIf="gitUserData.login">
+  <div class="picture">
+    <img [src]="gitUserData.avatar_url" />
+  </div>
+  <div class="list-container">
+    <h3 class="text-center">User Information</h3>
+    <div class="list">
+      <div class="text-center">User Name: </div>
+      <div class="text-center">{{gitUserData.login}}</div>
     </div>
-    <div class="primary-info">
-      <div class="field-container">
-        <div class="field-label">User Name: </div>
-        <div class="field-value">{{gitUserData.login}}</div>
-      </div>
-      <div class="field-container">
-        <div class="field-label">Name:</div>
-        <div class="field-value">{{gitUserData.name}}</div>
-      </div>
-      <div class="field-container">
-        <div class="field-label">Location</div>
-        <div class="field-value">{{gitUserData.location}}</div>
-      </div>
+    <div class="list">
+      <div class="text-center">Name:</div>
+      <div class="text-center">{{gitUserData.name}}</div>
     </div>
-    <div class="repository">
-      <h3>Top 5 Repository List</h3>
-      <ng-container *ngFor="let repo of gitUserData?.repository">
-        <div class="repo">{{repo.name}} - {{repo.stargazers_count}}</div>
-      </ng-container>
-      <ng-container *ngIf="userRepositoryErrMsg">
-        <div>{{userRepositoryErrMsg}}</div>
-        </ng-container>      
+    <div class="list">
+      <div class="text-center">Location</div>
+      <div class="text-center">{{gitUserData.location}}</div>
     </div>
-  </ng-container>
-  <ng-container *ngIf="!gitUserData"></ng-container>
+  </div>
+  <div class="list-container">
+    <h3 class="text-center">Top 5 Repository List</h3>
+    <ng-container *ngFor="let repo of gitUserData?.repository; let index of gitUserData?.repository.length">
+      <div class="list">
+        <div class="text-center">{{repo.name}}</div>
+        <div class="text-center">{{repo.stargazers_count}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="userRepositoryErrMsg">
+      <div class="no-data-found">{{userRepositoryErrMsg}}</div>
+    </ng-container>
+  </div>
 </div>
+
+<ng-container *ngIf="!gitUserData.login">
+  <div class="no-data-found">{{userRepositoryErrMsg}}</div>
+</ng-container>
